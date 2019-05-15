@@ -3,6 +3,7 @@ import { BoardService } from '../app/board.service';
 import { Board } from '../app/board';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { DragulaService } from 'ng2-dragula';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,8 @@ import { DragulaService } from 'ng2-dragula';
 
 
 export class AppComponent {
+
+  subs = new Subscription();
 
   title = 'BattleshipV1';
   BOARD_SIZE: number = 6;
@@ -27,9 +30,15 @@ export class AppComponent {
     this.createBoards();
     this.boards = this.boardService.getBoards();
     this.ships = [true, true, false, false, false, true, false];
-    // dragulaService.createGroup("TEST", {
-      
-    // });
+    dragulaService.createGroup("TEST", {
+      removeOnSpill: false
+    });
+
+    this.subs.add(this.dragulaService.drop("TEST")
+      .subscribe(({ name, el, target, source, sibling }) => {
+        console.log()
+      })
+    );
   }
 
 

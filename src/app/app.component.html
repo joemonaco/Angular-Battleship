@@ -6,20 +6,20 @@
     <tr *ngFor="let row of board.tiles; let j = index">
       <td *ngFor="let col of row; let k = index" (click)="selectCell(j, k)" class="cell">
         <ng-container *ngIf="col.used; else notUsed">
-            <div class="cell-used">
+            <div class="cell-used" dragula="TEST" [dragulaModel]="vampires" >
                 {{ j }} {{ k }}
                   <br>
                   {{col.used}}
               </div>
         </ng-container>
         <ng-template #notUsed>
-          <div class="cell-not-used">
+          <div class="cell-not-used" dragula="TEST">
           {{ j }} {{ k }}
             <br>
             {{col.used}}
           </div>
         </ng-template>  
-      </td>
+      </td> 
   </tr>
 </table>
 </div>
